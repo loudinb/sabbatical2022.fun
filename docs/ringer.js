@@ -21,7 +21,7 @@ var ringer = {
     r_count: 4,
     r_spacing: 10, // px
     r_size: 100, // px
-    r_thickness: 3, // px
+    r_thickness: 5, // px
     update_interval: 11, // ms
       
       
@@ -30,12 +30,6 @@ var ringer = {
       $r = ringer;
       $r.cvs = document.createElement('canvas'); 
       
-      $r.ctx = $r.cvs.getContext('2d');
-      $r.ctx.globalAlpha = 0.9;
-      $r.ctx.fillStyle = 'green';
-      $r.ctx.fillRect(0,0,5000,5000);
-      $(document.body).append($r.cvs);
-
       $r.size = { 
         w: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing*($r.r_count-1)), 
         h: ($r.r_size + $r.r_thickness) 
