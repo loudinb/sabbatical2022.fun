@@ -68,7 +68,13 @@ var ringer = {
       x +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
       y = $r.r_size*.5;
       y += $r.r_thickness*.5;
-  
+
+      const mediaQuery = window.matchMedia('(max-width: 480px)');
+      // Check if the media query is true
+      if (mediaQuery.matches) {
+        // Then trigger an alert
+        alert('Media Query Matched!');
+      };
       
       // calculate arc end angle
       var degrees = 360-(value / ring.max) * 360.0;
