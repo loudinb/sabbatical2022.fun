@@ -70,10 +70,9 @@ var ringer = {
       // Check if the media query is true
       if (mediaQuery.matches) {
         // Then trigger an alert
-        alert('got it');
-        x = ($r.r_size*.5 + $r.r_thickness*.5);
+        x = $r.r_size*.5;
         x += $r.r_thickness*.5;
-        y = $r.r_size*.5;
+        y = ($r.r_size*.5 + $r.r_thickness*.5);
         y +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
       } else {
         x = ($r.r_size*.5 + $r.r_thickness*.5);
