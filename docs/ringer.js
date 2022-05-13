@@ -79,7 +79,7 @@ var ringer = {
       $r.ctx.clearRect($r.actual_size*-0.5,$r.actual_size*-0.5,$r.actual_size,$r.actual_size);
   
       // first circle
-      $r.ctx.strokeStyle = "rgba(128,128,128,0.2)";
+      $r.ctx.strokeStyle = "rgba(255,128,128,0.2)";
       $r.ctx.beginPath();
       $r.ctx.arc(0,0,$r.r_size/2,0,2 * Math.PI, 2);
       $r.ctx.lineWidth =$r.r_thickness;
