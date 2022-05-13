@@ -21,7 +21,7 @@ var ringer = {
     r_count: 4,
     r_spacing: 10, // px
     r_size: 100, // px
-    r_thickness: 2, // px
+    r_thickness: 3, // px
     update_interval: 11, // ms
       
       
@@ -38,6 +38,7 @@ var ringer = {
       $r.cvs.setAttribute('width',$r.size.w);           
       $r.cvs.setAttribute('height',$r.size.h);
       $r.ctx = $r.cvs.getContext('2d');
+      $r.ctx.globalAlpha = 0.5;
       $(document.body).append($r.cvs);
       $r.cvs = $($r.cvs);    
       $r.ctx.textAlign = 'center';
