@@ -19,7 +19,7 @@ canvas {
 
 body {
 	background: #000000;
-	background-image: "assets/craft_brewery_map.jpg";
+	background-image: url("map.jpg");
 	background-position: top center;
 	background-size: cover;
 	color: #fff;
