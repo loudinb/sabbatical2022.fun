@@ -31,9 +31,10 @@ var ringer = {
       $r.cvs = document.createElement('canvas'); 
       
       $r.ctx = $r.cvs.getContext('2d');
-      $r.ctx.globalAlpha = 0.5;
+      $r.ctx.globalAlpha = 0.9;
       $r.ctx.fillStyle = 'green';
-      $r.ctx.fillRect(0,0,$r.cvs.width,$r.cvs.height);
+      $r.ctx.fillRect(0,0,5000,5000);
+      $(document.body).append($r.cvs);
       
       $r.size = { 
         w: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing*($r.r_count-1)), 
