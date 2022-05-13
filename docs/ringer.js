@@ -50,10 +50,7 @@ var ringer = {
     ctx: null,
     go: function(){
       var idx=0;
-      
       $r.time = (new Date().getTime()) - $r.countdown_to_time;
-      
-      
       for(var r_key in $r.rings) $r.unit(idx++,r_key,$r.rings[r_key]);      
       
       setTimeout($r.go,$r.update_interval);
@@ -64,16 +61,25 @@ var ringer = {
       $r.time-=Math.round(parseInt(value)) * ring_secs;
       value = Math.abs(value);
       
-      x = ($r.r_size*.5 + $r.r_thickness*.5);
-      x +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
-      y = $r.r_size*.5;
-      y += $r.r_thickness*.5;
+      //x = ($r.r_size*.5 + $r.r_thickness*.5);
+      //x +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
+      //y = $r.r_size*.5;
+      //y += $r.r_thickness*.5;
 
       const mediaQuery = window.matchMedia('(max-width: 480px)');
       // Check if the media query is true
       if (mediaQuery.matches) {
         // Then trigger an alert
-        alert('Media Query Matched!');
+        alert('got it');
+        x = ($r.r_size*.5 + $r.r_thickness*.5);
+        x += $r.r_thickness*.5;
+        y = $r.r_size*.5;
+        y +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
+      } else {
+        x = ($r.r_size*.5 + $r.r_thickness*.5);
+        x +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
+        y = $r.r_size*.5;
+        y += $r.r_thickness*.5;
       };
       
       // calculate arc end angle
