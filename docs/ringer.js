@@ -61,7 +61,7 @@ var ringer = {
     go: function(){
       var idx=0;
       $r.time = (new Date().getTime()) - $r.countdown_to_time;
-      for(var r_key in $r.rings) $r.unit(idx++,r_key,$r.rings[r_key]);      
+      //for(var r_key in $r.rings) $r.unit(idx++,r_key,$r.rings[r_key]);      
       
       setTimeout($r.go,$r.update_interval);
     },
