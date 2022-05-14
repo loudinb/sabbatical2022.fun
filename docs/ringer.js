@@ -30,10 +30,18 @@ var ringer = {
       $r = ringer;
       $r.cvs = document.createElement('canvas'); 
       
-      $r.size = { 
-        w: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing*($r.r_count-1)), 
-        h: ($r.r_size + $r.r_thickness) 
-      };
+      const mediaQuery = window.matchMedia('(max-width: 480px)');
+      if (mediaQuery.matches) {
+        $r.size = {
+          w: ($r.r_size + $r.r_thickness),
+          h: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing*($r.r_count-1))
+        };  
+      } else {
+        $r.size = { 
+          w: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing*($r.r_count-1)), 
+          h: ($r.r_size + $r.r_thickness) 
+        };  
+      }
       
       $r.cvs.setAttribute('width',$r.size.w);           
       $r.cvs.setAttribute('height',$r.size.h);
