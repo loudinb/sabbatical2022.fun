@@ -49,6 +49,11 @@ var ringer = {
       $r.ctx.rect(0, 0, $r.size.w, $r.size.h);
       $r.ctx.fillStyle = "red";
       $r.ctx.fill();
+      $r.ctx.fillStyle = "#000000";
+      const str = $r.size.w + ' x ' + $r.size.h;
+      $r.ctx.font = '12px Helvetica';
+      $r.ctx.fillText(label, $r.size.w*0.5, $r.size.h*0.5);
+      
       $(document.body).append($r.cvs);
       $r.cvs = $($r.cvs);    
       $r.ctx.textAlign = 'center';
@@ -118,10 +123,9 @@ var ringer = {
       
       // label
       $r.ctx.fillStyle = "#000000";
-     
       $r.ctx.font = '12px Helvetica';
       $r.ctx.fillText(label, 0, 23);
-      $r.ctx.fillText(label, 0, 23);   
+      //$r.ctx.fillText(label, 0, 23);   
       
       $r.ctx.font = 'bold 40px Helvetica';
       $r.ctx.fillText(Math.floor(value), 0, 10);
