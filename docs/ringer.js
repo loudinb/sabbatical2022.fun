@@ -29,7 +29,6 @@ var ringer = {
      
       $r = ringer;
       $r.cvs = document.createElement('canvas'); 
-      
       const mediaQuery = window.matchMedia('(max-width: 480px)');
       if (mediaQuery.matches) {
         $r.size = {
@@ -42,11 +41,14 @@ var ringer = {
           h: ($r.r_size + $r.r_thickness) 
         };  
       }
-      
       $r.cvs.setAttribute('width',$r.size.w);           
       $r.cvs.setAttribute('height',$r.size.h);
       $r.ctx = $r.cvs.getContext('2d');
       $r.ctx.globalAlpha = 1.0;
+      $r.ctx.beginPath();
+      $r.ctx.rect(0, 0, $r.size.w, $r.size.h);
+      $r.ctx.fillStyle = "red";
+      $r.ctx.fill();
       $(document.body).append($r.cvs);
       $r.cvs = $($r.cvs);    
       $r.ctx.textAlign = 'center';
@@ -80,11 +82,13 @@ var ringer = {
         // Then trigger an alert
         x = $r.r_size*.5;
         x += $r.r_thickness*.5;
-        y = ($r.r_size*.5 + $r.r_thickness*.5);
-        y +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
+        y = $r.r_size*.5;
+        y += $r.r_thickness*.5;
+        y += idx*($r.r_size+$r.r_spacing+$r.r_thickness);
       } else {
-        x = ($r.r_size*.5 + $r.r_thickness*.5);
-        x +=+(idx*($r.r_size+$r.r_spacing+$r.r_thickness));
+        x = $r.r_size*.5;
+        x += $r.r_thickness*.5;
+        x += idx*($r.r_size+$r.r_spacing+$r.r_thickness);
         y = $r.r_size*.5;
         y += $r.r_thickness*.5;
       };
