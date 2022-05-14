@@ -47,12 +47,12 @@ var ringer = {
       $r.ctx.globalAlpha = 1.0;
       $r.ctx.beginPath();
       $r.ctx.rect(0, 0, $r.size.w, $r.size.h);
-      $r.ctx.fillStyle = "red";
+      $r.ctx.fillStyle = "green";
       $r.ctx.fill();
       $r.ctx.fillStyle = "#000000";
-      const str = $r.size.w + ' x ' + $r.size.h;
+      const mystr = $r.size.w + ' x ' + $r.size.h;
       $r.ctx.font = '12px Helvetica';
-      $r.ctx.fillText(label, $r.size.w*0.5, $r.size.h*0.5);
+      $r.ctx.fillText(mystr, 10, 20);
       
       $(document.body).append($r.cvs);
       $r.cvs = $($r.cvs);    
