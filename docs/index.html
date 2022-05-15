@@ -63,7 +63,7 @@
             r_count: 4,
             r_spacing: 10,
             r_size: 100,
-            r_thickness: 8,
+            r_thickness: 10,
             update_interval: 11,
             rings: {
                 'DAYS': {
@@ -123,6 +123,7 @@
                 var endAngle = degrees * (Math.PI / 180);
 
                 ring.context.save();
+                ring.context.imageSmoothingEnabled = false;
                 ring.context.translate(x, y);
                 ring.context.clearRect($r.actual_size * -0.5, $r.actual_size * -0.5, $r.actual_size, $r.actual_size);
 
