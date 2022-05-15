@@ -1,58 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
-  <title>Drink More Beer!</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="core.css">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drink More Beer!</title>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <style>
+        html {
+            background-image: url('assets/map.jpg');
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-attachment: fixed;
+            background-size: cover;
+            background-color: rgba(255, 255, 255, 0.6);
+            background-blend-mode: soft-light;
+        }
 
-    .left {
-      background-color: #2196F3;
-      padding: 20px;
-      float: left;
-      width: 20%; /* The width is 20%, by default */
-    }
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            justify-content: center;
+            position:absolute;
+            width:100%; 
+            height:100%; 
+        }
 
-    .main {
-      background-color: #f1f1f1;
-      padding: 20px;
-      float: left;
-      width: 60%; /* The width is 60%, by default */
-    }
+        .flex-item {
+            display: flex;
+            background: transparent;
+            padding: 0px;
+            width: 120px;
+            height: 120px;
+            margin: 0px;
+            color: white;
+            text-align: center;
+        }
 
-    .right {
-      background-color: #04AA6D;
-      padding: 20px;
-      float: left;
-      width: 20%; /* The width is 20%, by default */
-    }
-
-    /* Use a media query to add a break point at 800px: */
-    @media screen and (max-width: 480px) {
-      .left, .main, .right {
-        width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
-      }
-    }
-  </style>
+        @media only screen and (max-width: 480px) {
+            .flex-container {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
+
 <body translate="no">
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script id="rendered-js" src="ringer.js"></script>
-  <div class="left">
-    <p>left</p>
-  </div> 
-  <div class="main">
-    <p>main</p>
-  </div> 
-  <div class="right">
-    <p>right</p>
-  </div> 
-  
+    <ul class="flex-container">
+        <li class="flex-item"><canvas id="DAYS"></canvas></li>
+        <li class="flex-item"><canvas id="HOURS"></canvas></li>
+        <li class="flex-item"><canvas id="MINUTES"></canvas></li>
+        <li class="flex-item"><canvas id="SECONDS"></canvas></li>
+    </ul>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+    <script>
+
+        var ringer = {
+            countdown_to: "5/27/2022 17:00",
+            r_count: 4,
+            r_spacing: 10,
+            r_size: 100,
+            r_thickness: 8,
+            update_interval: 11,
+            rings: {
+                'DAYS': {
+                    s: 86400000, // mseconds in a day,
+                    max: 365
+                },
+                'HOURS': {
+                    s: 3600000, // mseconds per hour,
+                    max: 24
+                },
+                'MINUTES': {
+                    s: 60000, // mseconds per minute
+                    max: 60
+                },
+                'SECONDS': {
+                    s: 1000,
+                    max: 60
+                }
+            },
+
+            init: function () {
+                $r = ringer;
+                for (var key in $r.rings) {
+                    console.log(key);
+                    const canvas = document.getElementById(key);
+                    const context = canvas.getContext('2d');
+                    $r.actual_size = $r.r_size + $r.r_thickness;
+                    fitToContainer(canvas);
+                    context.textAlign = 'center';
+                    $r.rings[key].context = context;
+                }
+                $r.actual_size = $r.r_size + $r.r_thickness;
+                $r.countdown_to_time = new Date($r.countdown_to).getTime();
+                $r.go();
+            },
+            go: function () {
+                console.log("in go function");
+                var idx = 0;
+                $r.time = (new Date().getTime()) - $r.countdown_to_time;
+                console.log($r.countdown_to_time);
+                for (var r_key in $r.rings) $r.unit(idx++, r_key, $r.rings[r_key]);
+                setTimeout($r.go, $r.update_interval);
+            },
+
+            unit: function (idx, label, ring) {
+                console.log("in unit function");
+                var x, y, value, ring_secs = ring.s;
+                value = parseFloat($r.time / ring_secs);
+                $r.time -= Math.round(parseInt(value)) * ring_secs;
+                value = Math.abs(value);
+
+                var x = $r.r_size * .5;
+                x += $r.r_thickness * .5;
+                var y = $r.r_size * .5;
+                y += $r.r_thickness * .5;
+                var degrees = 360 - (value / ring.max) * 360.0;
+                var endAngle = degrees * (Math.PI / 180);
+
+                ring.context.save();
+                ring.context.translate(x, y);
+                ring.context.clearRect($r.actual_size * -0.5, $r.actual_size * -0.5, $r.actual_size, $r.actual_size);
+
+                // first circle
+                ring.context.strokeStyle = "rgba(141,202,119,0.9)";
+                ring.context.beginPath();
+                ring.context.arc(0, 0, $r.r_size / 2, 0, 2 * Math.PI, 2);
+                ring.context.lineWidth = $r.r_thickness;
+                ring.context.stroke();
+
+                // second circle
+                ring.context.strokeStyle = "rgba(253, 128, 1, 0.9)";
+                ring.context.beginPath();
+                ring.context.arc(0, 0, $r.r_size / 2, 0, endAngle, 1);
+                ring.context.lineWidth = $r.r_thickness;
+                ring.context.stroke();
+
+                // label
+                ring.context.fillStyle = "#000000";
+                ring.context.font = '12px Arial';
+                ring.context.fillText(label, 0, 23);
+                ring.context.fillText(label, 0, 23);
+
+                ring.context.font = 'bold 40px Arial';
+                ring.context.fillText(Math.floor(value), 0, 10);
+
+                ring.context.restore();
+            }
+        }
+
+        function fitToContainer(canvas) {
+            // Make it visually fill the positioned parent
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            // ...then set the internal size to match
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+
+        ringer.init();
+
+    </script>
 </body>
 </html>
