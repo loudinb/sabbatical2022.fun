@@ -44,6 +44,9 @@
             .flex-container {
                 flex-direction: column;
             }
+            html {
+                background-position: top center;
+            }
         }
     </style>
 </head>
@@ -128,14 +131,14 @@
                 ring.context.clearRect($r.actual_size * -0.5, $r.actual_size * -0.5, $r.actual_size, $r.actual_size);
 
                 // first circle
-                ring.context.strokeStyle = "rgba(141,202,119,0.9)";
+                ring.context.strokeStyle = "rgba(141,202,119,1)";
                 ring.context.beginPath();
                 ring.context.arc(0, 0, $r.r_size / 2, 0, 2 * Math.PI, 2);
                 ring.context.lineWidth = $r.r_thickness;
                 ring.context.stroke();
 
                 // second circle
-                ring.context.strokeStyle = "rgba(253, 128, 1, 0.9)";
+                ring.context.strokeStyle = "rgba(253, 128, 1, 1)";
                 ring.context.beginPath();
                 ring.context.arc(0, 0, $r.r_size / 2, 0, endAngle, 1);
                 ring.context.lineWidth = $r.r_thickness;
